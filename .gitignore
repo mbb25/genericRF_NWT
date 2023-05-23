@@ -1,3 +1,5 @@
 __pycache__/
 labels/
 data/
+*.csv
+*.ipynb_checkpoint*

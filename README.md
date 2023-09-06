@@ -5,7 +5,7 @@ Most of the work here is done with jupyter notebooks. Here's an overview of thei
 - 1_data_extraction.ipynb
   - Ingests shapefiles and rasters from the raw data, and extracts pixel data from them. This will include R/G/B data, class (and class certainty), and heightmap category. The resulting dataframe is output as a `.csv` file
 - 2_process_training_data.ipynb
-  - Ingests the `.csv` output from the first notebook, and creates derived columns such as luminance, chrominance, and other features. This notebook has remained largely unchanged from its original form.
+  - Ingests the `.csv` output from the first notebook, and creates derived columns such as luminance, chrominance, and other features. This notebook has remained largely unchanged from its original form. It outputs a second `.csv` file, with the label `transformed` appended to the filename.
 - 2_process_validation_site.ipynb
   - This is only used if you want to run inference on every pixel in a site (for qualitative evaluation, for example). A site name is specified at the top of the notebook, and the script then splits the site into manageable chunks. These chunks are output as pickle files, as this is easier to manage for massive tensors with minimal overhead.
 - 3_training_and_inference.ipynb

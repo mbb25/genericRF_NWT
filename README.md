@@ -2,7 +2,7 @@
 
 ## Project description
 Changing illumination conditions during data aquisition (eg. clear sky vs. overcast sky) introduce large variations in RGB imagery and modify the appearance of vegetation like trees, mosses or lichen 
-in drone data. These variations in RGB data complicate using one generic classifier to classify vegetation across different drone datasets. Currently, robust classification is obtained by mission-specific classifiers, however, 
+in drone data. These variations in RGB imagery complicate using one generic classifier to classify vegetation across different drone datasets. Currently, robust classification is obtained by mission-specific classifiers, however, 
 training new classifers for each new drone dataset is laborious and not ideal. The objective of this project is to generate a vegetation classifier that performs well accross missions despite changing illumination conditions 
 during image acquisition.
 

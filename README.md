@@ -15,20 +15,20 @@ The second, use_classifier, contains notebooks and code for classifying RGB dron
 available for classification. This section is for users.
 
 ## Vegetation types
-1 - cladonia lichen
-2 - crustous lichen, dark
-3 - crustous lichen, light
-4 - rock
-5 - broadleaf
-6 - needleleaf
-7 - deadwood (ground)
-8 - graminoids, yellow
-9 - moss
-10 - soil
-11 - water
-12 - low-green
-13 - dry-branches (in canopy)
-14 - graminoids, green
+* 1 - cladonia lichen
+* 2 - crustous lichen, dark
+* 3 - crustous lichen, light
+* 4 - rock
+* 5 - broadleaf
+* 6 - needleleaf
+* 7 - deadwood (ground)
+* 8 - graminoids, yellow
+* 9 - moss
+* 10 - soil
+* 11 - water
+* 12 - low-green
+* 13 - dry-branches (in canopy)
+* 14 - graminoids, green
 
 
 ## How to use the classifier

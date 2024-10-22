@@ -20,7 +20,7 @@ import pandas as pd
 import random
 from pylab import mean
 from collections import Counter
-#import numpy as np
+import numpy as np
 
 def split_xy(df, non_predictive_columns=[]):
     """
@@ -361,3 +361,53 @@ def random_search(data, model_class, param_dist, run_function, n_iterations=50, 
             best_params = params
     
     print(f'\nBest params: {best_params}. Average test accuracy: {best_accuracy}')
+    return best_params
+    
+def model_best_params(data, test_sites, non_predictive_columns, best_params, model_class=RandomForestClassifier, n_jobs=8):
+    # train and validation data
+    train_data = data[~data['site'].isin(test_sites)]
+    X_train, y_train = split_xy(train_data, non_predictive_columns)
+
+    val_data = data[data['site'].isin(test_sites)]
+    X_val, y_val = split_xy(val_data, non_predictive_columns)
+
+    # model set-up and model training
+    n_jobs = 8
+    model_architecture = model_class(n_jobs=n_jobs, **best_params)
+    model = model_architecture.fit(X_train.values, y_train.values)
+
+    # predicted values
+    y_train_pred = model.predict(X_train.values)
+    y_val_pred = model.predict(X_val.values)
+
+    # dictionary
+    ana_dict = {}
+    ana_dict['test_sites'] = test_sites
+    ana_dict['model'] = model
+    ana_dict['train_values'] = {'X': X_train, 'y_true': y_train, 'y_pred': y_train_pred} 
+    ana_dict['val_values'] = {'X': X_val, 'y_true': y_val, 'y_pred': y_val_pred}
+    
+    return(ana_dict)
+
+def recall_precision(cfm):
+    recall = []
+    precision = []
+    
+    for line_count in range(0, len(cfm)):
+        #line_rec = cfm[line_count]
+        #correct_rec = line_rec[line_count]
+        recall.append(cfm[line_count][line_count]/sum(cfm[line_count]))
+        
+        precision.append(cfm.T[line_count][line_count]/sum(cfm.T[line_count]))
+        
+    return recall, precision
+
+def cfm_relativ(cfm):
+    cfm_rel = []
+    
+    samples_per_class = [sum(i) for i in cfm]
+    for i, line in enumerate(cfm):
+        line_relativ = [round(val/samples_per_class[i], 2)*100 for val in line]
+        cfm_rel.append(line_relativ)
+    
+    return np.array(cfm_rel)

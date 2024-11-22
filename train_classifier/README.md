@@ -1,5 +1,5 @@
 # Extract features and train classifier
-The subfolder train_classifier contains all code and notebooks to train an insite random forest classifier as well as to create a general 
+The subfolder train_classifier contains all code and notebooks to train an insite random forest classifier as well as to create a generic 
 classifier based on training data from multiple missions. 
 This folder is for development purposes only.
 
@@ -8,7 +8,7 @@ There are two parts to the code.
 ## Part I
 Extracting the features from a RGB geotif file and a chm shapefile using the label geodatabase. This work is done in the features notebook, auxiliary functions are stored in data_extraction.py and preprocessing_aux.py. The extracted features are first stored in a pandas dataframe, then saved in a csv file.
 
-File for Part I:
+Files for Part I:
 - features.ipynb
 - data_extraction.py
 - preprocessing_aux.py

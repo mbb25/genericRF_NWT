@@ -294,6 +294,7 @@ def site_cross_validation(model, data, run_function, cut_size, test_sites, non_p
     
     for cut in cv_cuts:
         train_data = data[~data['site'].isin(cut)]
+        train_data = train_data[~train_data['site'].isin(test_sites)]
         val_data = data[data['site'].isin(cut)]
         tr, va = run_function(model, train_data, val_data, non_predictive_columns) # this is where experiment fn is called
         train_accuracies.append(tr)
@@ -347,6 +348,7 @@ def random_search(data, model_class, param_dist, run_function, n_iterations=50, 
     
     best_params = None
     best_accuracy = 0.0
+    #print(data['site'].unique())
     
     for i in range(n_iterations):
         params = {key: random.choice(value) for key, value in param_dist.items()}
@@ -359,10 +361,10 @@ def random_search(data, model_class, param_dist, run_function, n_iterations=50, 
         if mean(val_accuracies) > best_accuracy:
             best_accuracy = mean(val_accuracies)
             best_params = params
-    
+                                                                                    
     print(f'\nBest params: {best_params}. Average test accuracy: {best_accuracy}')
     return best_params
-    
+
 def model_best_params(data, test_sites, non_predictive_columns, best_params, model_class=RandomForestClassifier, n_jobs=8):
     # train and validation data
     train_data = data[~data['site'].isin(test_sites)]

@@ -35,3 +35,5 @@ Input file:
 Output file:
 - trained_RF_classifier.pkl
 - classifier_performance.pkl
+
+Note: both the insite and generic classifiers are stored as pkl files in the classifier library in this github repo (classifier_lib). To see how to use the classifiers to classify a new drone mission see notebooks and documentation in the folder use_classifier, which also lives in the repo. 

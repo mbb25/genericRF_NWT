@@ -10,6 +10,6 @@ File for Part I:
     - preprocessing_aux.py
 2) The features are now used to train a random forest classifier. Several training approaches are possible. The in_site approach trains one classifier per site (train_insite_RF.ipynb) which has a better performance in most cases. The generic approach uses features from all sites to train one generic classifier for all sites and which, ideally, is generalizable to other drone data collected in southern NWT (train_experiments.ipynb). Several experiments were run to train a generic classifier using different data subsets, features, or data processing steps with the aim to improve the final generic classifier performance. The auxiliary functions are stored in training.py.
 Files for Part II:
-  - train_insite_RF.ipynb
-  - train_experiments.ipynb
-  - training.py
+    - train_insite_RF.ipynb
+    - train_experiments.ipynb
+    - training.py

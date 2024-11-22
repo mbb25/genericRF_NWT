@@ -7,3 +7,6 @@ runs/
 train_classifier/experiment_results_visualization.ipynb
 train_classifier/test_notebook_pdf.ipynb
 train_classifier/train_siteclusters_RF.ipynb
+train_classifier/experiment_results_visualization.pdf
+/validation
+/visualization

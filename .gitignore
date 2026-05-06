@@ -4,6 +4,7 @@ data/
 *.csv
 *.ipynb_checkpoint*
 runs/
+<<<<<<< HEAD
 train_classifier/data_fig4.zip
 train_classifier/data_fig4/CG1-8B_hp_chm_stratified.dbf
 train_classifier/data_fig4/CG1-8B_hp_chm_stratified.prj
@@ -27,3 +28,14 @@ visualization/resampling.py
 visualization/table_acc_class.ipynb
 visualization/training.py
 visualization/Untitled.ipynb
+=======
+train_classifier/experiment_results_visualization.ipynb
+train_classifier/test_notebook_pdf.ipynb
+train_classifier/train_siteclusters_RF.ipynb
+train_classifier/experiment_results_visualization.pdf
+/validation
+/visualization
+train_classifier/data_fig4.zip
+train_classifier/data_fig4/CG1-8B_hp_chm_stratified.dbf
+train_classifier/data_fig4/CG1-8B_hp_chm_stratified.prj
+>>>>>>> ce60cd9f7a21dfa681e1eb6f3ecca439f742fd7d

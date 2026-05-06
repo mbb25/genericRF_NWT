@@ -15,7 +15,7 @@ find the best performing general RFC for all sites.
 from sklearn.model_selection import train_test_split
 import imblearn
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import confusion_matrix
+from sklearn.metrics import confusion_matrix, balanced_accuracy_score
 import pandas as pd
 import random
 from pylab import mean
@@ -214,7 +214,9 @@ def in_site_RF(df, site, test_size=0.33, extra_metrics=False, non_predictive_col
 
     # -----------------------------------------------------------------------------------------------------------
     # Prediction
-    preds = clf.predict(X_test.values)
+    ytrain_preds = clf.predict(X_res.values)
+    ytest_preds = clf.predict(X_test.values)
+    # preds = clf.predict(X_test.values)
 
     #print(f'  Train accuracy: {clf.score(X_res, y_res)}')
     #print(f'  Test accuracy: {clf.score(X_test, y_test)}')
@@ -224,7 +226,7 @@ def in_site_RF(df, site, test_size=0.33, extra_metrics=False, non_predictive_col
         # Inspect performance parameters: training and testing scores, confusion matrix, and feature importanceax1 = plt.figure(figsize=(5,5)).add_subplot(111)
         extra_metrics = {}
 
-        extra_metrics['cf_matrix'] = confusion_matrix(y_test, preds,  labels = clf.classes_)
+        extra_metrics['cf_matrix'] = confusion_matrix(y_test, ytest_preds,  labels = clf.classes_)
         #disp = ConfusionMatrixDisplay(confusion_matrix=cf_matrix, display_labels=clf.classes_)
         #disp.plot()
         #plt.title('Confusion Matrix')
@@ -235,10 +237,15 @@ def in_site_RF(df, site, test_size=0.33, extra_metrics=False, non_predictive_col
         extra_metrics['train_accuracy'] = clf.score(X_res, y_res)
         extra_metrics['test_accuracy'] = clf.score(X_test, y_test)
         
-        return clf, extra_metrics, preds
+        extra_metrics['bal_acc_train'] = balanced_accuracy_score(y_res, ytrain_preds)
+        extra_metrics['bal_acc_test'] = balanced_accuracy_score(y_test, ytest_preds)
+
+        #print(clf.score(X_res, y_res), balanced_accuracy_score(y_res, ytrain_preds))
+        
+        return clf, extra_metrics, ytest_preds
     
     else:
-        return clf, preds
+        return clf, ytest_preds
 
 # Run all CV splits and return results
 def site_cross_validation(model, data, run_function, cut_size, test_sites, non_predictive_columns):
@@ -279,8 +286,8 @@ def site_cross_validation(model, data, run_function, cut_size, test_sites, non_p
     train_accuracies: list
     lists train accuracies for each cross validation.
     
-    test_accuracies: list
-    lists test accuracies for each cross validation.
+    validation_accuracies: list
+    lists validation accuracies for each cross validation.
     '''
     train_accuracies = []
     val_accuracies = []

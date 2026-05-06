@@ -10,3 +10,6 @@ train_classifier/train_siteclusters_RF.ipynb
 train_classifier/experiment_results_visualization.pdf
 /validation
 /visualization
+train_classifier/data_fig4.zip
+train_classifier/data_fig4/CG1-8B_hp_chm_stratified.dbf
+train_classifier/data_fig4/CG1-8B_hp_chm_stratified.prj

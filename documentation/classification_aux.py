@@ -12,8 +12,9 @@ import os
 import pickle as pkl
 from scipy.ndimage import zoom
 import re
+from pathlib import Path
 
-def load_site_data(data_dir: str, site: str):
+def load_site_data(data_dir: str, fname_rgb: str, fname_chm: str):
     """
     Retrieve RGB and canopy height data from source files 
     (R,G,B-orthomosaic and canopy-height-model (chm) file) and merge to one raster file.
@@ -39,8 +40,12 @@ def load_site_data(data_dir: str, site: str):
     """
     
     # TODO file paths should not be (partly) hardcoded
-    rgb_file = os.path.join(data_dir, site, f'{site}_transparent_mosaic_group1.tif')
-    chm_file = os.path.join(data_dir, site, f'dem_and_derivatives/{site}_lp_chm_stratified.tif')
+    # Get the directory where this script lives
+    base_dir = Path(__file__).resolve().parent
+    rgb_file = os.path.join(base_dir, data_dir, f'{fname_rgb}.tif').replace("\\", "/")
+    print(f'looking for rgb.tif file here: {rgb_file}')
+    chm_file = os.path.join(base_dir, data_dir, f'dem_and_derivatives/{fname_chm}.tif').replace("\\", "/")
+    print(f'looking for chm.tif file here: {chm_file}')
     
     rasters = {}
 
@@ -256,7 +261,9 @@ def classify_mission(rgb_file, run_dir, model, blocks=4):
     """
     #TODO chm position hard coded
     chm=3
-    with rio.open(rgb_file) as f:
+    base_dir = Path(__file__).resolve().parent
+    rgb_path = os.path.join(base_dir, f'{rgb_file}.tif').replace("\\", "/")
+    with rio.open(rgb_path) as f:
         meta = f.meta
     
     curr_y = 0
@@ -276,7 +283,7 @@ def classify_mission(rgb_file, run_dir, model, blocks=4):
         for x in range(blocks):
             print(f'Processing block {y}-{x}')
             
-            file_path = os.path.join(run_dir, 'composite', f'chunk_{y}_{x}.pkl')
+            file_path = os.path.join(base_dir, run_dir, 'composite', f'chunk_{y}_{x}.pkl')
                     
             if not os.path.isfile(file_path):
                 w = width_track[f'chunk_{y}_{x}']
